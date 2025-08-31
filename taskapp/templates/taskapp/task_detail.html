@@ -1,0 +1,22 @@
+{% extends 'taskapp/Layout/base.html' %}
+{% block title %}{{ task.title }}{% endblock %}
+{% block content %}
+
+<div class="bg-white p-6 rounded shadow">
+    <h2 class="text-3xl font-bold text-purple-700">{{ task.title }}</h2>
+    <p class="text-gray-700 mt-4">{{ task.description }}</p>
+    <p class="mt-2 text-gray-500">Due Date: {{ task.due_date }}</p>
+    {% if task.image %}
+        <img src="{{ task.image.url }}" alt="{{ task.title }}" class="mt-4 w-full max-h-96 object-cover rounded">
+    {% endif %}
+    <p class="mt-2 font-semibold {% if task.is_completed %}text-green-600{% else %}text-yellow-600{% endif %}">
+        {% if task.is_completed %}Completed ✅{% else %}Pending ❌{% endif %}
+    </p>
+    <div class="mt-4 flex gap-4">
+        <a href="{% url 'task-update' task.pk %}" class="bg-yellow-600 text-white px-4 py-2 rounded hover:bg-yellow-700 transition">Edit Task</a>
+        <a href="{% url 'task-delete' task.pk %}" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition">Delete Task</a>
+        <a href="{% url 'task-list' %}" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 transition">Back to Tasks</a>
+    </div>
+</div>
+
+{% endblock %}
